@@ -26,13 +26,9 @@ rpmbuild/SOURCES/$(SOURCE_ARCHIVE):
 	rm -rf tmp Dockerfile
 	docker images | grep -q $(IMAGE_NAME) && docker rmi $(IMAGE_NAME) || true
 
-# bintray:
-# 	./scripts/build_bintray_json.bash \
-# 		fluent \
-# 		h2o-debuginfo \
-# 		libh2o \
-# 		libh2o-evloop \
-# 		libh2o-devel
+bintray:
+	./scripts/build_bintray_json.bash \
+		fluent-bit
 
 clean:
 	rm -rf *.build.bak *.build bintray tmp Dockerfile

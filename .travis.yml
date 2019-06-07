@@ -1,0 +1,22 @@
+dist: xenial
+
+services:
+  - docker
+
+language: c
+
+env:
+  - TARGET_DISTRIBUTION=amazonlinux2
+
+script:
+  - make "$TARGET_DISTRIBUTION"
+
+before_deploy:
+  - make bintray
+
+deploy:
+  - provider: bintray
+    user: shogo82148
+    key: '$BINTRAY_API_KEY'
+    file: ./bintray/bintray-flunet-bit.json
+    skip_cleanup: true
