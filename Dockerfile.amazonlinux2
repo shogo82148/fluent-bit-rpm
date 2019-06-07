@@ -1,0 +1,23 @@
+FROM amazonlinux:2
+ENV HOME /
+RUN yum update -y
+
+# build cmake
+# because cmake of Amazon Linux 2 is old
+# https://github.com/fluent/fluent-bit/issues/1345
+ENV CMAKE_VERSION="3.14.5" \
+    CMAKE_SHA256="505ae49ebe3c63c595fa5f814975d8b72848447ee13b6613b0f8b96ebda18c06"
+RUN yum install -y make gcc-c++ tar gzip
+RUN curl -sSL -o cmake.tar.gz "https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION.tar.gz" \
+        && echo "$CMAKE_SHA256 cmake.tar.gz" | sha256sum -c - \
+        && tar xf cmake.tar.gz \
+        && cd cmake-$CMAKE_VERSION \
+        && ./configure && make && make install
+
+RUN yum install -y rpm-build redhat-rpm-config rpmdevtools pkgconfig systemd-devel cyrus-sasl-devel zlib-devel flex bison
+RUN rpmdev-setuptree
+ADD ./rpmbuild/ /rpmbuild/
+RUN chown -R root:root /rpmbuild
+RUN rpmbuild -ba /rpmbuild/SPECS/fluent-bit.spec
+RUN tar -czf /tmp/fluent-bit.tar.gz -C /rpmbuild RPMS SRPMS
+CMD ["/bin/true"]
