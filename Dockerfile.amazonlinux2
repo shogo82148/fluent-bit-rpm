@@ -1,23 +1,20 @@
 FROM amazonlinux:2
 ENV HOME /
 RUN yum update -y
+RUN yum install -y rpm-build make gcc-c++ tar gzip cmake3 pkgconfig systemd-devel cyrus-sasl-devel zlib-devel flex bison unzip
 
-# build cmake
-# because cmake of Amazon Linux 2 is old
-# https://github.com/fluent/fluent-bit/issues/1345
-ENV CMAKE_VERSION="3.14.5" \
-    CMAKE_SHA256="505ae49ebe3c63c595fa5f814975d8b72848447ee13b6613b0f8b96ebda18c06"
-RUN yum install -y make gcc-c++ tar gzip
-RUN curl -sSL -o cmake.tar.gz "https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION.tar.gz" \
-        && echo "$CMAKE_SHA256 cmake.tar.gz" | sha256sum -c - \
-        && tar xf cmake.tar.gz \
-        && cd cmake-$CMAKE_VERSION \
-        && ./configure && make && make install
+ARG FLB_PREFIX
+ARG FLB_VERSION
 
-RUN yum install -y rpm-build redhat-rpm-config rpmdevtools pkgconfig systemd-devel cyrus-sasl-devel zlib-devel flex bison
-RUN rpmdev-setuptree
-ADD ./rpmbuild/ /rpmbuild/
-RUN chown -R root:root /rpmbuild
-RUN rpmbuild -ba /rpmbuild/SPECS/fluent-bit.spec
-RUN tar -czf /tmp/fluent-bit.tar.gz -C /rpmbuild RPMS SRPMS
-CMD ["/bin/true"]
+ENV FLB_TARBALL http://github.com/fluent/fluent-bit/archive/$FLB_PREFIX$FLB_VERSION.zip
+
+RUN cd /tmp && \
+    curl -sSL -o "/tmp/fluent-bit-${FLB_VERSION}.zip" ${FLB_TARBALL} && \
+    unzip "fluent-bit-$FLB_VERSION.zip" && \
+    cd "/tmp/fluent-bit-${FLB_VERSION}/build" && \
+    cmake3 -DFLB_DEBUG=On -DFLB_TRACE=On -DFLB_TD=On \
+           -DFLB_BUFFERING=On -DFLB_SQLDB=On -DFLB_HTTP_SERVER=On \
+           -DFLB_OUT_KAFKA=On ../
+WORKDIR "/tmp/fluent-bit-${FLB_VERSION}/build"
+
+CMD make && cpack3 && cp *.rpm /output/
