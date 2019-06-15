@@ -16,12 +16,12 @@ baseurl=https://dl.bintray.com/shogo82148/fluent-bit-rpm/amazonlinux2/$releaseve
 gpgcheck=0
 repo_gpgcheck=1
 enabled=1
-gpgkey=https://bintray.com/api/v1/usrs/shogo82148/keys/gpg/public.key
+gpgkey=https://bintray.com/user/downloadSubjectPublicKey?username=shogo82148
 ```
 
 Once the file is correctly saved, you can install packages in the repository by
 
 ```bash
-rpm --import https://bintray.com/api/v1/usrs/shogo82148/keys/gpg/public.key
+rpm --import https://bintray.com/user/downloadSubjectPublicKey?username=shogo82148
 yum install fluent-bit
 ```
