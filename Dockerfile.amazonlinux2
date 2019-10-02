@@ -26,5 +26,5 @@ RUN cat ../CMakeLists.txt | \
 
 RUN cmake3 ..
 RUN make
-RUN cpack3
+RUN cpack3 -G RPM
 CMD cp *.rpm /output/
