@@ -1,4 +1,4 @@
-FLB_VERSION := 1.3.4
+FLB_VERSION := 1.3.5
 
 .PHONY: all clean amazonlinux2
 
