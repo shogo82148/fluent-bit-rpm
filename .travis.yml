@@ -1,3 +1,4 @@
+os: linux
 dist: xenial
 
 services:
@@ -19,4 +20,4 @@ deploy:
     user: shogo82148
     key: '$BINTRAY_API_KEY'
     file: ./bintray/bintray-fluent-bit.json
-    skip_cleanup: true
+    cleanup: false
