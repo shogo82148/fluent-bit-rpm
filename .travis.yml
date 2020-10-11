@@ -21,5 +21,6 @@ deploy:
     key: '$BINTRAY_API_KEY'
     file: ./bintray/bintray-fluent-bit.json
     cleanup: false
+    skip_cleanup: true
     on:
       branch: main
