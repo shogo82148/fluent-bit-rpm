@@ -5,7 +5,7 @@ set -uex
 USER=shogo82148
 BINTRAY_API=https://api.bintray.com
 FLB_VERSION=$1
-# FLB_DISTRO=$2
+FLB_DISTRO=$2
 FLB_RELEASE=1
 SUBJECT=shogo82148
 REPO=fluent-bit-rpm
@@ -26,10 +26,10 @@ curl -u "$USER:$BINTRAY_API_KEY" \
 
 : upload RPM files
 
-for RPM in "$ROOT/amazonlinux2.build/$PACKAGE-$FLB_VERSION-$FLB_RELEASE".*.rpm
+for RPM in "$ROOT/$FLB_DISTRO.build/$PACKAGE-$FLB_VERSION-$FLB_RELEASE".*.rpm
 do
     curl -u "$USER:$BINTRAY_API_KEY" \
-        "$BINTRAY_API/content/$SUBJECT/$REPO/amazonlinux2/2/x86_64/$(basename "$RPM")" \
+        "$BINTRAY_API/content/$SUBJECT/$REPO/$FLB_DISTRO/2/x86_64/$(basename "$RPM")" \
         -H "X-Bintray-Package: $PACKAGE" \
         -H "X-Bintray-Version: $FLB_VERSION-$FLB_RELEASE" \
         -H "X-Bintray-Publish: 1" \
