@@ -12,3 +12,7 @@ jobs:
       - name: build
         run: |
           make amazonlinux2
+      - name: upload
+        # if: github.event_name == 'push'
+        run: |
+          make upload
