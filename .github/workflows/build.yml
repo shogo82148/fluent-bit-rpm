@@ -16,3 +16,5 @@ jobs:
         # if: github.event_name == 'push'
         run: |
           make upload
+        env:
+          BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
