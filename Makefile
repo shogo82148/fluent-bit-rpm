@@ -1,14 +1,13 @@
 FLB_VERSION := 1.6.9
 
-.PHONY: all clean amazonlinux2
+.PHONY: all clean amazonlinux2 upload
 
 all: amazonlinux2
 amazonlinux2:
 	scripts/build.bash $(FLB_VERSION) amazonlinux2
 
-bintray:
-	./scripts/build_bintray_json.bash \
-		fluent-bit
+upload:
+	scripts/upload.sh $(FLB_VERSION) amazonlinux2
 
 clean:
 	rm -rf *.build.bak *.build bintray
