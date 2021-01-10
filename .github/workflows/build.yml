@@ -15,7 +15,7 @@ jobs:
         run: |
           make amazonlinux2
       - name: upload
-        # if: github.event_name == 'push'
+        if: github.event_name == 'push'
         run: |
           make upload
         env:
