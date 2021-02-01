@@ -1,6 +1,6 @@
 # fluent-bit-rpm Unofficial RPM package builder
 
-[![Build Status](https://travis-ci.com/shogo82148/fluent-bit-rpm.svg?branch=master)](https://travis-ci.com/shogo82148/fluent-bit-rpm)
+![build](https://github.com/shogo82148/fluent-bit-rpm/workflows/build/badge.svg)
 
 It provides [Fluent Bit](https://fluentbit.io/) RPM spec file and required files to build RPM for Amazon Linux 2.
 
