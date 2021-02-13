@@ -1,0 +1,32 @@
+FROM centos:8
+ENV HOME /
+RUN dnf update -y
+RUN dnf install -y epel-release
+RUN dnf module install -y perl:5.30
+RUN dnf install -y rpm-build make gcc-c++ tar gzip cmake3 pkgconfig systemd-devel cyrus-sasl-devel zlib-devel flex bison unzip openssl-devel libgcrypt-devel
+
+ARG FLB_PREFIX
+ARG FLB_VERSION
+ARG FLB_RELEASE
+
+ENV FLB_TARBALL http://github.com/fluent/fluent-bit/archive/$FLB_PREFIX$FLB_VERSION.zip
+
+RUN cd /tmp && \
+    curl -sSL -o "/tmp/fluent-bit-${FLB_VERSION}.zip" ${FLB_TARBALL} && \
+    unzip "fluent-bit-$FLB_VERSION.zip"
+WORKDIR "/tmp/fluent-bit-${FLB_VERSION}/build"
+
+# override package information
+# because it is not the official package td-agent.
+RUN cat ../CMakeLists.txt | \
+    perl -pe "s/\\bset\\(CPACK_PACKAGE_NAME\\s+.*\\)\$/set(CPACK_PACKAGE_NAME \"fluent-bit\")/g" | \
+    perl -pe "s/\\bset\\(CPACK_PACKAGE_RELEASE\\s+.*\\)\$/set(CPACK_PACKAGE_RELEASE \"$FLB_RELEASE.el8\")/g" | \
+    perl -pe "s/\\bset\\(CPACK_PACKAGE_CONTACT\\s+.*\\)\$/set(CPACK_PACKAGE_CONTACT \"Ichinose Shogo <shogo82148@gmail.com>\")/g" | \
+    perl -pe "s/\\bset\\(CPACK_PACKAGE_VENDOR\\s+.*\\)\$/set(CPACK_PACKAGE_VENDOR \"Ichinose Shogo\")/g" | \
+    perl -pe "s/\\bset\\(CPACK_PACKAGING_INSTALL_PREFIX\\s+.*\\)\$/set(CPACK_PACKAGING_INSTALL_PREFIX \"\\/\")/g" \
+    > /tmp/CMakeLists.txt && mv /tmp/CMakeLists.txt ..
+
+RUN cmake3 -DFLB_IN_HTTP=Off ..
+RUN make
+RUN cpack3 -G RPM
+CMD cp *.rpm /output/
