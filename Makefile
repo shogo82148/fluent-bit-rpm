@@ -13,7 +13,7 @@ centos8:
 	scripts/build.bash $(FLB_VERSION) centos8
 
 upload:
-	scripts/upload.sh $(FLB_VERSION) amazonlinux2
+	scripts/upload.pl
 
 clean:
-	rm -rf *.build.bak *.build bintray
+	rm -rf *.build.bak *.build
