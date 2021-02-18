@@ -3,20 +3,34 @@ name: build
 on:
   pull_request:
   push:
-    branches:
-      - main
+  workflow_dispatch:
+  release:
+    types: [published]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        distribution:
+          - amazonlinux2
+          - centos7
+          - centos8
+
     steps:
       - uses: actions/checkout@v2
       - name: build
         run: |
-          make amazonlinux2
-#       - name: upload
-#         if: github.event_name == 'push'
-#         run: |
-#           make upload
-#         env:
-#           BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
+          make ${{ matrix.distribution }}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+      - name: upload
+        if: github.event_name == 'release'
+        run: |
+          make upload

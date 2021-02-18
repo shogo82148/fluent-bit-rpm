@@ -2,8 +2,7 @@ FROM centos:8
 ENV HOME /
 RUN dnf update -y
 RUN dnf install -y epel-release
-RUN dnf module install -y perl:5.30
-RUN dnf install -y rpm-build make gcc-c++ tar gzip cmake3 pkgconfig systemd-devel cyrus-sasl-devel zlib-devel flex bison unzip openssl-devel libgcrypt-devel
+RUN dnf install -y rpm-build make gcc-c++ tar gzip cmake3 pkgconfig systemd-devel cyrus-sasl-devel zlib-devel flex bison unzip openssl-devel libgcrypt-devel perl
 
 ARG FLB_PREFIX
 ARG FLB_VERSION
