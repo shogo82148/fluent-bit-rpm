@@ -5,8 +5,8 @@ set -exu
 ROOT=$(cd "$(dirname "$0")/../" && pwd)
 
 FLB_VERSION=$1
-FLB_DISTRO=$2
-FLB_RELEASE=1
+FLB_RELEASE=$2
+FLB_DISTRO=$3
 
 if [[ -d "$ROOT/$FLB_DISTRO.build.bak" ]]; then
     rm -rf "$ROOT/$FLB_DISTRO.build.bak"
