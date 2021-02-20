@@ -18,8 +18,13 @@ sub execute {
 sub upload {
     my ($variant, $prefix) = @_;
     while (my $rpm = <$FindBin::Bin/../$variant.build/*.x86_64.rpm>) {
-        system("aws", "s3", "cp", $rpm, "s3://shogo82148-rpm-temporary/$prefix/x86_64/fluent-bit/");
+        execute("aws", "s3", "cp", $rpm, "s3://shogo82148-rpm-temporary/$prefix/x86_64/fluent-bit/");
+    }
+    while (my $rpm = <$FindBin::Bin/../$variant.build/*.aarch64.rpm>) {
+        execute("aws", "s3", "cp", $rpm, "s3://shogo82148-rpm-temporary/$prefix/aarch64/fluent-bit/");
     }
 }
 
 upload "amazonlinux2", "amazonlinux/2";
+upload "centos7", "centos/7";
+upload "centos8", "centos/8";
