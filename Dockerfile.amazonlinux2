@@ -25,6 +25,6 @@ RUN cat ../CMakeLists.txt | \
     > /tmp/CMakeLists.txt && mv /tmp/CMakeLists.txt ..
 
 RUN cmake3 -DFLB_IN_HTTP=Off ..
-RUN make
+RUN make -j$(nproc)
 RUN cpack3 -G RPM
 CMD cp *.rpm /output/
