@@ -25,7 +25,7 @@ RUN cat ../CMakeLists.txt | \
     perl -pe "s/\\bset\\(CPACK_PACKAGING_INSTALL_PREFIX\\s+.*\\)\$/set(CPACK_PACKAGING_INSTALL_PREFIX \"\\/\")/g" \
     > /tmp/CMakeLists.txt && mv /tmp/CMakeLists.txt ..
 
-RUN cmake3 -DFLB_IN_HTTP=Off ..
+RUN cmake3 ..
 RUN make -j$(nproc)
 RUN cpack3 -G RPM
 CMD cp *.rpm /output/
