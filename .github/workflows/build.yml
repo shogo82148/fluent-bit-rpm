@@ -43,6 +43,5 @@ jobs:
           role-to-assume: arn:aws:iam::445285296882:role/rpm-repository-users-FluentBitRole-1C2C9XSCO4A2C
           role-session-tagging: true
       - name: upload
-        if: github.event_name == 'release'
         run: |
           make upload
