@@ -27,5 +27,5 @@ RUN cat ../CMakeLists.txt | \
 
 RUN cmake ..
 RUN make -j$(nproc)
-RUN cpack3 -G RPM
+RUN cpack -G RPM
 CMD cp *.rpm /output/
