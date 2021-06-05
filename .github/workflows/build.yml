@@ -21,10 +21,6 @@ jobs:
         platform:
           - linux/amd64
           - linux/arm64
-        exclude:
-          # AlmaLinux doesn't provide arm64 image now (2021-04-06)
-          - distribution: almalinux8
-            platform: linux/arm64
 
     steps:
       - uses: docker/setup-qemu-action@v1
