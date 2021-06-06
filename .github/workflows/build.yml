@@ -18,9 +18,14 @@ jobs:
           - centos7
           - centos8
           - almalinux8
+          - rockylinux8
         platform:
           - linux/amd64
           - linux/arm64
+        exclude:
+          # RockyLinux doesn't provide arm64 image now (2021-06-06)
+          - distribution: rockylinux8
+            platform: linux/arm64
 
     steps:
       - uses: docker/setup-qemu-action@v1
