@@ -1,4 +1,4 @@
-FLB_VERSION := 1.7.8
+FLB_VERSION := 1.7.9
 FLB_RELEASE := 1
 
 .PHONY: all clean amazonlinux2 centos7 centos8 upload almalinux8 rockylinux8
