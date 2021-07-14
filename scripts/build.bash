@@ -25,7 +25,7 @@ docker buildx build \
     --build-arg FLB_PREFIX=v \
     --build-arg FLB_RELEASE="$FLB_RELEASE" \
     -t "flb-$FLB_DISTRO-$FLB_VERSION" \
-    -f "$ROOT/Dockerfile.$FLB_DISTRO" "$ROOT/$FLB_DISTRO.build"
+    -f "$ROOT/Dockerfile.$FLB_DISTRO" "$ROOT"
 
 docker run \
     --rm \

@@ -1,5 +1,5 @@
 FROM centos:7
-ENV HOME /
+
 RUN yum update -y
 RUN yum install -y epel-release
 RUN yum install -y rpm-build make gcc-c++ tar gzip cmake3 pkgconfig systemd-devel cyrus-sasl-devel zlib-devel flex bison unzip openssl-devel libgcrypt-devel
@@ -14,6 +14,10 @@ RUN cd /tmp && \
     curl -sSL -o "/tmp/fluent-bit-${FLB_VERSION}.zip" ${FLB_TARBALL} && \
     unzip "fluent-bit-$FLB_VERSION.zip"
 WORKDIR "/tmp/fluent-bit-${FLB_VERSION}/build"
+
+# apply patches
+COPY patches /patches
+RUN cd .. && cat /patches/*.patch | patch -p1
 
 # override package information
 # because it is not the official package td-agent.
