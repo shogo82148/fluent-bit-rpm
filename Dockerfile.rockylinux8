@@ -2,7 +2,23 @@ FROM rockylinux/rockylinux:8
 
 RUN dnf update -y
 RUN dnf install -y epel-release
-RUN dnf install -y rpm-build make gcc-c++ tar gzip cmake pkgconfig systemd-devel cyrus-sasl-devel zlib-devel flex bison unzip openssl-devel libgcrypt-devel perl
+RUN dnf install -y \
+        rpm-build \
+        make \
+        gcc-c++ \
+        tar \
+        gzip \
+        cmake \
+        pkgconfig \
+        systemd-devel \
+        cyrus-sasl-devel \
+        zlib-devel \
+        flex \
+        bison \
+        unzip \
+        openssl-devel \
+        libgcrypt-devel \
+        perl
 
 ARG FLB_PREFIX
 ARG FLB_VERSION
