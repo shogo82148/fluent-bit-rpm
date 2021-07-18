@@ -1,7 +1,23 @@
 FROM amazonlinux:2
 
 RUN yum update -y
-RUN yum install -y rpm-build make gcc-c++ tar gzip cmake3 pkgconfig systemd-devel cyrus-sasl-devel zlib-devel flex bison unzip
+RUN yum install -y \
+        rpm-build \
+        make \
+        gcc-c++ \
+        tar \
+        gzip \
+        cmake3 \
+        pkgconfig \
+        systemd-devel \
+        cyrus-sasl-devel \
+        zlib-devel \
+        flex \
+        bison \
+        unzip \
+        openssl-devel \
+        libgcrypt-devel \
+        perl
 
 ARG FLB_PREFIX
 ARG FLB_VERSION
