@@ -1,5 +1,5 @@
-FLB_VERSION := 1.8.1
-FLB_RELEASE := 3
+FLB_VERSION := 1.8.2
+FLB_RELEASE := 1
 
 .PHONY: all
 all: amazonlinux2 centos7 centos8 almalinux8 rockylinux8
