@@ -35,7 +35,7 @@ Or install the RPM package for configure the repository.
 yum install -y https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/amazonlinux/2/noarch/shogo82148/shogo82148-1.0.0-1.amzn2.noarch.rpm
 ```
 
-### CentOS 7 and 8
+### CentOS 7
 
 To add Fluent Bit yum repository, create a file named `/etc/yum.repos.d/shogo82148.repo`.
 
@@ -52,9 +52,6 @@ gpgkey=https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/RPM-GPG
 Or install the RPM package for configure the repository.
 
 ```bash
-# CentOS 7
-yum install -y https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/centos/7/noarch/shogo82148/shogo82148-1.0.0-1.el7.noarch.rpm
-
 # CentOS 8
 yum install -y https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/centos/8/noarch/shogo82148/shogo82148-1.0.0-1.el8.noarch.rpm
 ```
