@@ -52,6 +52,42 @@ gpgkey=https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/RPM-GPG
 Or install the RPM package for configure the repository.
 
 ```bash
-# CentOS 8
-yum install -y https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/centos/8/noarch/shogo82148/shogo82148-1.0.0-1.el8.noarch.rpm
+# CentOS 7
+yum install -y https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/centos/7/noarch/shogo82148/shogo82148-1.0.0-1.el8.noarch.rpm
+```
+
+### RHEL 8 Compatible Distributions (AlmaLinux 8 and Rocky Linux 8)
+
+To add Fluent Bit yum repository, create a file named `/etc/yum.repos.d/shogo82148.repo`.
+
+```ini
+# shogo82148-rpm - packages by shogo82148
+# AlmaLinux 8
+[shogo82148-rpm]
+name=shogo82148-rpm
+baseurl=https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/almalinux/$releasever/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/RPM-GPG-KEY-shogo82148
+```
+
+```ini
+# shogo82148-rpm - packages by shogo82148
+# Rocky Linux 8
+[shogo82148-rpm]
+name=shogo82148-rpm
+baseurl=https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/rockylinux/$releasever/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/RPM-GPG-KEY-shogo82148
+```
+
+Or install the RPM package for configure the repository.
+
+```bash
+# AlmaLinux 8
+yum install -y https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/almalinux/8/noarch/shogo82148/shogo82148-1.0.0-1.el8.noarch.rpm
+
+# Rocky Linux 8
+yum install -y https://shogo82148-rpm-repository.s3-ap-northeast-1.amazonaws.com/rockylinux/8/noarch/shogo82148/shogo82148-1.0.0-1.el8.noarch.rpm
 ```
