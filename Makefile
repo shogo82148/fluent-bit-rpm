@@ -24,7 +24,7 @@ rockylinux8:
 	scripts/build.bash $(FLB_VERSION) $(FLB_RELEASE) rockylinux8
 
 .PHONY: test
-test: test-amazonlinux2 test-centos7 test-almalinux8 test-rockylinux8
+test: test-amazonlinux2 test-centos7 test-almalinux8 test-almalinux9 test-rockylinux8
 
 .PHONY: test-amazonlinux2
 test-amazonlinux2:
