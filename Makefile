@@ -16,8 +16,8 @@ almalinux8:
 	scripts/build.bash $(FLB_VERSION) $(FLB_RELEASE) almalinux8
 
 .PHONY: almalinux9
-almalinux8:
-	scripts/build.bash $(FLB_VERSION) $(FLB_RELEASE) almalinux8
+almalinux9:
+	scripts/build.bash $(FLB_VERSION) $(FLB_RELEASE) almalinux9
 
 .PHONY: rockylinux8
 rockylinux8:
@@ -39,8 +39,8 @@ test-almalinux8:
 	scripts/test.bash almalinux8
 
 .PHONY: test-almalinux9
-test-almalinux8:
-	scripts/test.bash almalinux8
+test-almalinux9:
+	scripts/test.bash almalinux9
 
 .PHONY: test-rockylinux8
 test-rockylinux8:
