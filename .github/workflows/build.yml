@@ -17,6 +17,7 @@ jobs:
           - amazonlinux2
           - centos7
           - almalinux8
+          - almalinux9
           - rockylinux8
         platform:
           - linux/amd64
