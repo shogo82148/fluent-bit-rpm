@@ -2,7 +2,7 @@ FROM almalinux:9
 
 RUN dnf update -y
 RUN dnf install -y epel-release
-RUN dnf install -y --enablerepo=powertools \
+RUN dnf install -y --enablerepo=crb \
         rpm-build \
         make \
         gcc-c++ \
