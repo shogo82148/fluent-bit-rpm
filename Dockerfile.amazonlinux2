@@ -17,6 +17,7 @@ RUN yum install -y \
         unzip \
         openssl-devel \
         libgcrypt-devel \
+        libyaml-devel \
         perl
 
 ARG FLB_PREFIX
