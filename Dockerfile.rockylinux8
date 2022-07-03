@@ -2,7 +2,7 @@ FROM rockylinux/rockylinux:8
 
 RUN dnf update -y
 RUN dnf install -y epel-release
-RUN dnf install -y \
+RUN dnf install -y --enablerepo=powertools \
         rpm-build \
         make \
         gcc-c++ \
