@@ -19,6 +19,7 @@ jobs:
           - almalinux8
           - almalinux9
           - rockylinux8
+          - rockylinux9
         platform:
           - linux/amd64
           - linux/arm64
