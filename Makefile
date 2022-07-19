@@ -2,7 +2,7 @@ FLB_VERSION := 1.9.5
 FLB_RELEASE := 1
 
 .PHONY: all
-all: amazonlinux2 centos7 almalinux8 almalinux9 rockylinux8
+all: amazonlinux2 centos7 almalinux8 almalinux9 rockylinux8 rockylinux9
 .PHONY: amazonlinux2
 amazonlinux2:
 	scripts/build.bash $(FLB_VERSION) $(FLB_RELEASE) amazonlinux2
@@ -23,8 +23,12 @@ almalinux9:
 rockylinux8:
 	scripts/build.bash $(FLB_VERSION) $(FLB_RELEASE) rockylinux8
 
+.PHONY: rockylinux9
+rockylinux9:
+	scripts/build.bash $(FLB_VERSION) $(FLB_RELEASE) rockylinux9
+
 .PHONY: test
-test: test-amazonlinux2 test-centos7 test-almalinux8 test-almalinux9 test-rockylinux8
+test: test-amazonlinux2 test-centos7 test-almalinux8 test-almalinux9 test-rockylinux8 test-rockylinux9
 
 .PHONY: test-amazonlinux2
 test-amazonlinux2:
@@ -45,6 +49,10 @@ test-almalinux9:
 .PHONY: test-rockylinux8
 test-rockylinux8:
 	scripts/test.bash rockylinux8
+
+.PHONY: test-rockylinux9
+test-rockylinux9:
+	scripts/test.bash rockylinux9
 
 .PHONY: upload
 upload:

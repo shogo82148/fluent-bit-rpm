@@ -1,8 +1,8 @@
-FROM rockylinux:8
+FROM rockylinux:9
 
 RUN dnf update -y
 RUN dnf install -y epel-release
-RUN dnf install -y --enablerepo=powertools \
+RUN dnf install -y --enablerepo=crb \
         rpm-build \
         make \
         gcc-c++ \
@@ -40,7 +40,7 @@ RUN cd .. && cat /patches/*.patch | patch -p1
 # because it is not the official package td-agent.
 RUN cat ../CMakeLists.txt | \
     perl -pe "s/\\bset\\(CPACK_PACKAGE_NAME\\s+.*\\)\$/set(CPACK_PACKAGE_NAME \"fluent-bit\")/g" | \
-    perl -pe "s/\\bset\\(CPACK_PACKAGE_RELEASE\\s+.*\\)\$/set(CPACK_PACKAGE_RELEASE \"$FLB_RELEASE.el8\")/g" | \
+    perl -pe "s/\\bset\\(CPACK_PACKAGE_RELEASE\\s+.*\\)\$/set(CPACK_PACKAGE_RELEASE \"$FLB_RELEASE.el9\")/g" | \
     perl -pe "s/\\bset\\(CPACK_PACKAGE_CONTACT\\s+.*\\)\$/set(CPACK_PACKAGE_CONTACT \"Ichinose Shogo <shogo82148@gmail.com>\")/g" | \
     perl -pe "s/\\bset\\(CPACK_PACKAGE_VENDOR\\s+.*\\)\$/set(CPACK_PACKAGE_VENDOR \"Ichinose Shogo\")/g" | \
     perl -pe "s/\\bset\\(CPACK_PACKAGING_INSTALL_PREFIX\\s+.*\\)\$/set(CPACK_PACKAGING_INSTALL_PREFIX \"\\/\")/g" \
