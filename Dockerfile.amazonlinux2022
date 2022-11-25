@@ -1,0 +1,51 @@
+FROM amazonlinux:2022
+
+RUN dnf update -y
+RUN dnf install -y \
+        rpm-build \
+        make \
+        gcc-c++ \
+        tar \
+        gzip \
+        cmake3 \
+        pkgconfig \
+        systemd-devel \
+        cyrus-sasl-devel \
+        zlib-devel \
+        flex \
+        bison \
+        unzip \
+        openssl-devel \
+        libgcrypt-devel \
+        libyaml-devel \
+        perl
+
+ARG FLB_PREFIX
+ARG FLB_VERSION
+ARG FLB_RELEASE
+
+ENV FLB_TARBALL http://github.com/fluent/fluent-bit/archive/$FLB_PREFIX$FLB_VERSION.zip
+
+RUN cd /tmp && \
+    curl -sSL -o "/tmp/fluent-bit-${FLB_VERSION}.zip" ${FLB_TARBALL} && \
+    unzip "fluent-bit-$FLB_VERSION.zip"
+WORKDIR "/tmp/fluent-bit-${FLB_VERSION}/build"
+
+# apply patches
+COPY patches /patches
+RUN cd .. && cat /patches/*.patch | patch -p1
+
+# override package information
+# because it is not the official package td-agent.
+RUN cat ../CMakeLists.txt | \
+    perl -pe "s/\\bset\\(CPACK_PACKAGE_NAME\\s+.*\\)\$/set(CPACK_PACKAGE_NAME \"fluent-bit\")/g" | \
+    perl -pe "s/\\bset\\(CPACK_PACKAGE_RELEASE\\s+.*\\)\$/set(CPACK_PACKAGE_RELEASE \"$FLB_RELEASE.amzn2\")/g" | \
+    perl -pe "s/\\bset\\(CPACK_PACKAGE_CONTACT\\s+.*\\)\$/set(CPACK_PACKAGE_CONTACT \"Ichinose Shogo <shogo82148@gmail.com>\")/g" | \
+    perl -pe "s/\\bset\\(CPACK_PACKAGE_VENDOR\\s+.*\\)\$/set(CPACK_PACKAGE_VENDOR \"Ichinose Shogo\")/g" | \
+    perl -pe "s/\\bset\\(CPACK_PACKAGING_INSTALL_PREFIX\\s+.*\\)\$/set(CPACK_PACKAGING_INSTALL_PREFIX \"\\/\")/g" \
+    > /tmp/CMakeLists.txt && mv /tmp/CMakeLists.txt ..
+
+RUN cmake ..
+RUN make -j$(nproc)
+RUN cpack -G RPM
+CMD cp *.rpm /output/
