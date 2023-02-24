@@ -1,4 +1,4 @@
-FLB_VERSION := 2.0.8
+FLB_VERSION := 2.0.9
 FLB_RELEASE := 1
 
 .PHONY: all
