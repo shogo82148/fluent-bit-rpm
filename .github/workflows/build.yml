@@ -20,6 +20,7 @@ jobs:
         distribution:
           - amazonlinux2
           - amazonlinux2022
+          - amazonlinux2023
           - centos7
           - almalinux8
           - almalinux9
