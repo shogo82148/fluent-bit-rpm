@@ -1,7 +1,7 @@
-FROM amazonlinux:2022
+FROM amazonlinux:2
 
-RUN dnf update -y
-RUN dnf install -y \
+RUN yum update -y
+RUN yum install -y \
         rpm-build \
         make \
         gcc-c++ \
@@ -45,7 +45,7 @@ RUN cat ../CMakeLists.txt | \
     perl -pe "s/\\bset\\(CPACK_PACKAGING_INSTALL_PREFIX\\s+.*\\)\$/set(CPACK_PACKAGING_INSTALL_PREFIX \"\\/\")/g" \
     > /tmp/CMakeLists.txt && mv /tmp/CMakeLists.txt ..
 
-RUN cmake ..
+RUN cmake3 ..
 RUN make -j$(nproc)
-RUN cpack -G RPM
+RUN cpack3 -G RPM
 CMD cp *.rpm /output/
