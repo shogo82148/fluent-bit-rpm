@@ -66,6 +66,10 @@ test-rockylinux9:
 upload:
 	scripts/upload.pl
 
+.PHONY: update
+update:
+	scripts/update.sh
+
 .PHONY: clean
 clean:
 	rm -rf *.build.bak *.build
