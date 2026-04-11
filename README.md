@@ -1,3 +1,9 @@
+# NO LONGER MAINTAINED
+
+This repository is no longer maintained.
+
+The RPM packages previously provided here are now officially available. Please use the official ones: [Linux packages](https://docs.fluentbit.io/manual/installation/downloads/linux).
+
 # fluent-bit-rpm Unofficial RPM package builder
 
 ![build](https://github.com/shogo82148/fluent-bit-rpm/workflows/build/badge.svg)
